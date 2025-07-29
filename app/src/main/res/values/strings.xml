@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TextProcessorApp</string>
+    <string name="speech_button">Listen to Summary</string>
+    <string-array name="language_names">
+        <item>English</item>
+        <item>Hindi</item>
+        <item>Marathi</item>
+    </string-array>
+    <string-array name="language_codes">
+        <item>en-US</item>
+        <item>hi-IN</item>
+        <item>mr-IN</item>
+    </string-array>
+</resources>
