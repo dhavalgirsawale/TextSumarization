@@ -26,7 +26,6 @@ public interface ApiService {
     Call<RewriteResponse> rewriteText(@Body RewriteRequest request);
 }
 
-// Request/Response classes
 class SummaryRequest {
     String text;
     SummaryRequest(String text) { this.text = text; }
@@ -69,7 +68,6 @@ class SummaryRequest {
      public void setCompression_ratio(String compression_ratio) {
          this.compression_ratio = compression_ratio;
      }
-// Add getters and setters
 }
 class TranslationRequest {
     String text;
