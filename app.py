@@ -162,7 +162,7 @@ def rewrite():
             max_length=1024,
             min_length=60,
             num_beams=5,
-            temperature=0.9,  # Higher temperature for more creativity
+            temperature=0.9,  
             top_k=50,
             top_p=0.95,
             repetition_penalty=2.0,
@@ -187,4 +187,5 @@ def rewrite():
 if __name__ == '__main__':
 
     app.run(host='0.0.0.0', port=5000, debug=True)
+
 
