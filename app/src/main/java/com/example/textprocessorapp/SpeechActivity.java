@@ -27,19 +27,15 @@ public class SpeechActivity extends AppCompatActivity implements TextToSpeech.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech);
 
-        // Get summary text from intent
         summaryText = getIntent().getStringExtra("SUMMARY_TEXT");
         TextView tvSummary = findViewById(R.id.tvSummary);
         tvSummary.setText(summaryText);
 
-        // Initialize TTS
         tts = new TextToSpeech(this, this);
 
-        // Setup language spinner
         languageSpinner = findViewById(R.id.spinnerLanguages);
         setupLanguageSpinner();
 
-        // Button listeners
         findViewById(R.id.btnSpeak).setOnClickListener(v -> speak());
         findViewById(R.id.btnStop).setOnClickListener(v -> stopSpeaking());
     }
@@ -49,7 +45,6 @@ public class SpeechActivity extends AppCompatActivity implements TextToSpeech.On
         languages.add(new LangItem("Marathi", "mr-IN"));
         languages.add(new LangItem("Hindi", "hi-IN"));
         languages.add(new LangItem("English", "en-US"));
-        // Add more languages as needed
 
         ArrayAdapter<LangItem> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, languages);
@@ -92,7 +87,6 @@ public class SpeechActivity extends AppCompatActivity implements TextToSpeech.On
         super.onDestroy();
     }
 
-    // Helper class for spinner items
     private static class LangItem {
         private final String name;
         private final String code;
