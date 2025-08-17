@@ -12,7 +12,7 @@ import numpy as np
 nlp = spacy.load("en_core_web_sm")
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)  
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -187,3 +187,4 @@ def rewrite():
 if __name__ == '__main__':
 
     app.run(host='0.0.0.0', port=5000, debug=True)
+
