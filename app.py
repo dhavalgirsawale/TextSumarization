@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from transformers import pipeline, BertTokenizer, BertForSequenceClassification
 from googletrans import Translator
-import fitz  # PyMuPDF
+import fitz  
 import logging
 import torch
 import spacy
@@ -9,13 +9,11 @@ from flask_cors import CORS
 from collections import Counter
 import numpy as np
 
-# Initialize spaCy for sentence splitting
 nlp = spacy.load("en_core_web_sm")
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -26,15 +24,12 @@ summarizer = pipeline(
 )
 
 
-# Translator setup
 translator = Translator()
 
-# Load sentiment classification model (example: Yelp Polarity)
 MODEL_NAME = "textattack/bert-base-uncased-yelp-polarity"
 tokenizer = BertTokenizer.from_pretrained(MODEL_NAME)
 model = BertForSequenceClassification.from_pretrained(MODEL_NAME)
 
-# Load the rewriter model (add near your other pipelines)
 rewriter = pipeline("text2text-generation", model="facebook/bart-large-cnn")
 
 @app.route('/translate', methods=['POST'])
@@ -66,7 +61,6 @@ def summarize():
                 "note": "Input too short for meaningful summarization"
             })
 
-        # Smarter summarization length tuning
         max_len = min(180, max(60, word_count // 2))
         min_len = min(120, max(30, word_count // 3))
 
@@ -82,7 +76,6 @@ def summarize():
 
         summary_text = summary[0]['summary_text']
 
-        # Check similarity to avoid near-copy outputs
         def calculate_similarity(a, b):
             a_words = set(a.lower().split())
             b_words = set(b.lower().split())
@@ -164,8 +157,6 @@ def rewrite():
 
         if style not in style_prompts:
             return jsonify({"error": "Invalid style specified"}, 400)
-
-        # More aggressive generation parameters
         result = rewriter(
             style_prompts[style],
             max_length=1024,
@@ -177,8 +168,6 @@ def rewrite():
             repetition_penalty=2.0,
             do_sample=True
         )
-        
-        # Post-processing to ensure style compliance
         output = result[0]['generated_text']
         if style == "academic" and "[citation]" not in output.lower():
             output += " [Further research needed]"
@@ -196,4 +185,5 @@ def rewrite():
         return jsonify({"error": "Failed to rewrite text"}), 500
 
 if __name__ == '__main__':
+
     app.run(host='0.0.0.0', port=5000, debug=True)
