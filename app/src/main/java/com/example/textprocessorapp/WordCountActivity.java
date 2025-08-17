@@ -35,12 +35,10 @@ public class WordCountActivity extends AppCompatActivity {
         totalWordCount = findViewById(R.id.totalWordCount);
         searchWordInput = findViewById(R.id.searchWordInput);
 
-        // Initialize with original text
         spannableString = new SpannableString(fullText);
-        TextView originalTextView = findViewById(R.id.originalText); // Add this TextView to your XML
+        TextView originalTextView = findViewById(R.id.originalText); 
         originalTextView.setText(spannableString);
 
-        // Show total word count
         int totalWords = fullText.split("\\s+").length;
         totalWordCount.setText("Total words: " + totalWords);
 
@@ -51,15 +49,12 @@ public class WordCountActivity extends AppCompatActivity {
         String searchWord = searchWordInput.getText().toString().trim();
         if (searchWord.isEmpty()) return;
 
-        // Reset previous highlights
         spannableString = new SpannableString(fullText);
 
-        // Case-insensitive search
         Pattern pattern = Pattern.compile("(?i)\\b" + Pattern.quote(searchWord) + "\\b");
         Matcher matcher = pattern.matcher(fullText);
         int count = 0;
 
-        // Find and highlight all matches
         while (matcher.find()) {
             count++;
             spannableString.setSpan(
@@ -70,12 +65,10 @@ public class WordCountActivity extends AppCompatActivity {
             );
         }
 
-        // Update UI
         wordCountResult.setText("Word appears: " + count + " times");
         TextView originalTextView = findViewById(R.id.originalText);
         originalTextView.setText(spannableString);
 
-        // Change color for next search
         lastHighlightColor = (lastHighlightColor == Color.YELLOW) ? Color.CYAN : Color.YELLOW;
     }
 }
