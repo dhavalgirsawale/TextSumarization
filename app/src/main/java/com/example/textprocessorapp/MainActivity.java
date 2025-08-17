@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView btnCancel;
     private TextView tvUploadStatus;
 
-    // Language codes for the 6 supported languages
     private final String[] languageCodes = {"mr", "hi", "te", "pa"};
     private final String[] languageNames = {"Marathi", "Hindi", "Telugu", "Punjabi"};
 
@@ -373,7 +372,6 @@ public class MainActivity extends AppCompatActivity {
         resultText.setText(spannable);
     }
 
-    // Add this method to show style selection dialog
     private void showRewriteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose Writing Style");
@@ -393,7 +391,6 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    // Add this method to handle API call
     private void rewriteText(String style) {
         String text = getInputText();
         if (text.isEmpty()) {
@@ -422,7 +419,6 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    // Add this method to display results
     private void displayRewriteResult(RewriteResponse response) {
         String result = String.format(
                 "【%s Version】\n%s\n\nOriginal:\n%s",
@@ -430,8 +426,6 @@ public class MainActivity extends AppCompatActivity {
                 response.getRewrittenText(),
                 response.getOriginalText()
         );
-
-        // Make style header bold
         SpannableString spannable = new SpannableString(result);
         spannable.setSpan(
                 new StyleSpan(Typeface.BOLD),
